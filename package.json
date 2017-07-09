@@ -54,12 +54,14 @@
     "prettier": "^1.5.2",
     "proxyquire": "^1.8.0",
     "react-test-renderer": "^15.6.1",
+    "sass-loader": "^6.0.6",
     "sinon": "^2.3.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.1"
   },
   "dependencies": {
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
