@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
     filename: '[name].[hash].js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
         exclude: /node_modules/,
@@ -19,16 +19,33 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use:
-            'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!sass-loader'
-        })
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development'
+            }
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true
+            }
+          },
+          'sass-loader'
+        ]
       }
     ]
   },
+  optimization: {
+    minimize: true //Update this to true or false
+  },
   plugins: [
-    new ExtractTextPlugin({ filename: '[name].[hash].css', allChunks: true }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+      allChunks: true
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       js: ['[name].[hash].js'],
@@ -39,12 +56,6 @@ module.exports = {
         main: {
           entry: '[name].[hash].js'
         }
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false
       }
     })
   ]

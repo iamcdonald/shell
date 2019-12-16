@@ -15,7 +15,7 @@
     "text-summary"
   ],
   "require": [
-    "babel-register"
+    "@babel/register"
   ],
   "cache": false,
   "all": true,
