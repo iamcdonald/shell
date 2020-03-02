@@ -4,7 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "precommit": "lint-staged && npm run lint && npm run coverage",
     "lint": "eslint '{src,test}/**/*.js'",
     "start:dev": "webpack-dev-server --hot --inline --host 0.0.0.0 --port 8080 --no-info",
     "build": "rm -rf public && webpack",
@@ -61,9 +60,14 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run lint && npm run test:coverage"
+    }
+  },
   "ava": {
     "require": [
-      "./test/unit/css-modules-compiler",
+      "./test-utils/css-modules-compiler",
       "@babel/register"
     ],
     "babel": true,
@@ -71,7 +75,7 @@
       "jsx"
     ],
     "files": [
-      "test/**/*.spec.{js,jsx}"
+      "src/**/*.spec.{js,jsx}"
     ],
     "source": [
       "src/**/*.{js,jsx}"

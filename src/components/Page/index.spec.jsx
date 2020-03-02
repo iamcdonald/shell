@@ -1,18 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import test from 'ava';
-import Page from '../../../../src/components/Page';
-import style from '../../../../src/components/Page/page.scss';
-import Header from '../../../../src/components/Page/Header';
-import Content from '../../../../src/components/Page/Content';
+import Page from './index';
+import style from './page.scss';
+import Header from './Header';
+import Content from './Content';
 
 const createComp = children => {
   return {
-    comp: shallow(
-      <Page>
-        {children}
-      </Page>
-    )
+    comp: shallow(<Page>{children}</Page>)
   };
 };
 

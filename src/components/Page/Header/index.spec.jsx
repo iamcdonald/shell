@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import test from 'ava';
-import Header from '../../../../../src/components/Page/Header';
-import style from '../../../../../src/components/Page/Header/header.scss';
+import Header from './index';
+import style from './header.scss';
 
 const createComp = () => shallow(<Header />);
 
