@@ -17,11 +17,12 @@
     ]
   },
   "devDependencies": {
+    "@ava/babel": "^1.0.1",
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
     "@babel/register": "^7.7.4",
-    "ava": "^2.4.0",
+    "ava": "^3.5.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.3.2",
@@ -65,8 +66,12 @@
       "./test/unit/css-modules-compiler",
       "@babel/register"
     ],
+    "babel": true,
+    "extensions": [
+      "jsx"
+    ],
     "files": [
-      "test/**/*.spec.js"
+      "test/**/*.spec.{js,jsx}"
     ],
     "source": [
       "src/**/*.{js,jsx}"

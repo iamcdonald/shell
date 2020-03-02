@@ -10,10 +10,13 @@ module.exports = {
     path: path.join(__dirname, 'public'),
     filename: '[name].[hash].js'
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
