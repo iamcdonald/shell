@@ -1,16 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import test from 'ava';
-import Contents from '../../../../../src/components/Page/Content';
-import style from '../../../../../src/components/Page/Content/content.scss';
+import Contents from './index';
+import style from './content.scss';
 
 const createComp = children => {
   return {
-    comp: shallow(
-      <Contents>
-        {children}
-      </Contents>
-    )
+    comp: shallow(<Contents>{children}</Contents>)
   };
 };
 

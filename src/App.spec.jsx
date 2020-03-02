@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import test from 'ava';
-import App from '../../src/App';
-import Page from '../../src/components/Page';
+import App from './App';
+import Page from './components/Page';
 
 const createComp = () => shallow(<App />);
 

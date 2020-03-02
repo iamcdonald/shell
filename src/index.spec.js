@@ -1,5 +1,5 @@
 import React from 'react';
-import App from '../../src/App';
+import App from './App';
 import test from 'ava';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
@@ -12,7 +12,7 @@ const setup = () => {
   global.document = {
     getElementById: x => x
   };
-  proxyquire('../../src/index', stubs);
+  proxyquire('./index', stubs);
   return { stubs };
 };
 
