@@ -7,8 +7,8 @@
     "lint": "eslint '{src,test}/**/*.js'",
     "start:dev": "webpack-dev-server --hot --inline --host 0.0.0.0 --port 8080 --no-info",
     "build": "rm -rf public && webpack",
-    "test:unit": "ava",
-    "test:coverage": "nyc npm run test:unit"
+    "test:unit": "jest",
+    "test:unit:coverage": "npm run test:unit -- --collectCoverage"
   },
   "lint-staged": {
     "*.{js,jsx}": [
@@ -16,23 +16,23 @@
     ]
   },
   "devDependencies": {
-    "@ava/babel": "^1.0.1",
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
     "@babel/register": "^7.7.4",
-    "ava": "^3.5.0",
+    "@testing-library/dom": "^6.12.2",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.3.2",
-    "css-modules-require-hook": "^4.0.6",
-    "enzyme": "^2.9.1",
     "eslint": "^4.1.1",
     "eslint-config-prettier": "^2.3.0",
     "eslint-config-semistandard": "^11.0.0",
     "eslint-config-semistandard-react": "^3.0.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "^23.8.1",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-node": "^5.1.0",
     "eslint-plugin-prettier": "^2.1.2",
@@ -41,15 +41,13 @@
     "eslint-plugin-standard": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.3",
+    "jest": "^25.1.0",
     "lint-staged": "^10.0.1",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.13.1",
-    "nyc": "^14.1.1",
     "prettier": "^1.5.2",
-    "proxyquire": "^1.8.0",
     "react-test-renderer": "^15.6.1",
     "sass-loader": "^8.0.0",
-    "sinon": "^2.3.6",
     "style-loader": "^0.18.2",
     "webpack": "^4.41.3",
     "webpack-cli": "^3.3.10",
@@ -62,23 +60,37 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run lint && npm run test:coverage"
+      "pre-commit": "lint-staged && npm run lint && npm run test:unit:coverage"
     }
   },
-  "ava": {
-    "require": [
-      "./test-utils/css-modules-compiler",
-      "@babel/register"
+  "jest": {
+    "moduleNameMapper": {
+      "\\.scss$": "<rootDir>/.jest/identity-obj-proxy-esm.js"
+    },
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/**/*.spec.{js,jsx}"
     ],
-    "babel": true,
-    "extensions": [
-      "jsx"
+    "coverageThreshold": {
+      "global": {
+        "lines": 100,
+        "statements": 100,
+        "functions": 100,
+        "branches": 100
+      }
+    },
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov",
+      "text"
     ],
-    "files": [
-      "src/**/*.spec.{js,jsx}"
+    "testMatch": [
+      "<rootDir>/src/**/*.spec.{js,jsx}"
     ],
-    "source": [
-      "src/**/*.{js,jsx}"
+    "testPathIgnorePatterns": [
+      "/node_modules/"
     ]
   }
 }

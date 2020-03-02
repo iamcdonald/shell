@@ -1,23 +1,25 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import test from 'ava';
+import { render, cleanup } from '@testing-library/react';
 import Contents from './index';
 import style from './content.scss';
 
 const createComp = children => {
   return {
-    comp: shallow(<Contents>{children}</Contents>)
+    comp: render(<Contents>{children}</Contents>)
   };
 };
 
-test('it renders container with correct class', t => {
-  const { comp } = createComp();
-  t.is(comp.props().className, style.content);
-});
+describe('components/Page/Content', () => {
+  afterEach(cleanup);
 
-test('it renders children within container', t => {
-  const children = <div>smash</div>;
-  const { comp } = createComp(children);
-  t.is(comp.find('div').length, 1);
-  t.is(comp.find('div').text(), 'smash');
+  it('renders container with correct class', () => {
+    const { comp } = createComp();
+    expect(comp.container.firstChild.className).toEqual(style.content);
+  });
+
+  it('renders children within container', () => {
+    const children = <div>smash</div>;
+    const { comp } = createComp(children);
+    expect(comp.getByText('smash')).toBeTruthy();
+  });
 });

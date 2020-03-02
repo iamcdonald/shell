@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import test from 'ava';
+import { render, cleanup, getByText } from '@testing-library/react';
 import Page from './index';
 import style from './page.scss';
 import Header from './Header';
@@ -8,24 +7,26 @@ import Content from './Content';
 
 const createComp = children => {
   return {
-    comp: shallow(<Page>{children}</Page>)
+    comp: render(<Page>{children}</Page>)
   };
 };
+describe('components/Page', () => {
+  afterEach(cleanup);
 
-test('it renders container with correct class', t => {
-  const { comp } = createComp();
-  t.is(comp.props().className, style.page);
-});
+  it('renders container with correct class', () => {
+    const { comp } = createComp();
+    expect(comp.container.firstChild.className).toEqual(style.page);
+  });
 
-test('it renders Header comp', t => {
-  const { comp } = createComp();
-  t.is(comp.find(Header).length, 1);
-});
+  it('renders Header comp', () => {
+    const { comp } = createComp();
+    expect(comp.getByText('Header')).toBeTruthy();
+  });
 
-test('it renders Content comp with correct children', t => {
-  const children = 'some text';
-  const { comp } = createComp(children);
-  const content = comp.find(Content);
-  t.is(content.length, 1);
-  t.is(content.props().children, children);
+  it('renders Content comp with correct children', () => {
+    const children = 'some text';
+    const { comp } = createComp(children);
+    const content = comp.getByRole('main');
+    expect(getByText(content, 'some text')).toBeTruthy();
+  });
 });

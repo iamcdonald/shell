@@ -1,22 +1,18 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
-import test from 'ava';
-import proxyquire from 'proxyquire';
-import sinon from 'sinon';
 
-const setup = () => {
-  const stubs = {};
-  stubs['react-dom'] = {
-    render: sinon.stub()
-  };
-  global.document = {
-    getElementById: x => x
-  };
-  proxyquire('./index', stubs);
-  return { stubs };
-};
+jest.mock('react-dom', () => ({
+  render: jest.fn()
+}));
 
-test('test', t => {
-  const { stubs } = setup();
-  t.pass(stubs['react-dom'].render.calledWith(<App />, 'app'));
+describe('index', () => {
+  beforeEach(() => {
+    global.document.getElementById = x => x;
+    require('./index');
+  });
+
+  it('renders App component ', () => {
+    expect(ReactDOM.render).toHaveBeenCalledWith(<App />, 'app');
+  });
 });

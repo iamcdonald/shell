@@ -4,3 +4,10 @@
   settings:
     react:
       version: detect
+  overrides:
+    files:
+      - "**/*.spec.js"
+    env:
+      jest: true
+    plugins:
+      - "jest"

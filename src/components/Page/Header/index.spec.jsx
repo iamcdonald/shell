@@ -1,12 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import test from 'ava';
+import { render, cleanup } from '@testing-library/react';
 import Header from './index';
 import style from './header.scss';
 
-const createComp = () => shallow(<Header />);
+describe('components/Page/Header', () => {
+  afterEach(cleanup);
 
-test('it renders container with correct class', t => {
-  const comp = createComp();
-  t.is(comp.props().className, style.header);
+  it('renders container with correct class', () => {
+    const comp = render(<Header />);
+    expect(comp.container.firstChild.className).toEqual(style.header);
+  });
 });

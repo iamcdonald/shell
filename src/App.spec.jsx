@@ -1,13 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import test from 'ava';
+import { render, cleanup } from '@testing-library/react';
 import App from './App';
 import Page from './components/Page';
 
-const createComp = () => shallow(<App />);
+describe('App', () => {
+  afterEach(cleanup);
 
-test('renders page with correct contents', t => {
-  const app = createComp();
-  const page = app.find(Page);
-  t.is(page.props().children, 'A page with contents');
+  it('renders page with correct contents', () => {
+    const app = render(<App />);
+    expect(app.getByText('A page with contents')).toBeTruthy();
+  });
 });
