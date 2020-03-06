@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup, getByText } from '@testing-library/react';
 import Page from './index';
-import style from './page.scss';
+import style from './page.css';
 import Header from './Header';
 import Content from './Content';
 

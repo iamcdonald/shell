@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import Contents from './index';
-import style from './content.scss';
+import style from './content.css';
 
 const createComp = children => {
   return {

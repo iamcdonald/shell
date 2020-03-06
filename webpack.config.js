@@ -3,7 +3,10 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 module.exports = {
+  mode: isDev ? 'development' : 'production',
   devtool: 'cheap-module-eval-source-map',
   entry: [path.join(__dirname, 'src/index')],
   output: {
@@ -21,14 +24,9 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.scss$/,
+        test: /\.css$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development'
-            }
-          },
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -36,7 +34,7 @@ module.exports = {
               modules: true
             }
           },
-          'sass-loader'
+          'postcss-loader'
         ]
       }
     ]
@@ -46,8 +44,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      allChunks: true
+      filename: '[name].[hash].css'
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',

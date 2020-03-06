@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint '{src,test}/**/*.js'",
     "start:dev": "webpack-dev-server --hot --inline --host 0.0.0.0 --port 8080 --no-info",
-    "build": "rm -rf public && webpack",
+    "build": "rm -rf public && NODE_ENV=production  webpack",
     "test:unit": "jest",
     "test:unit:coverage": "npm run test:unit -- --collectCoverage"
   },
@@ -26,6 +26,7 @@
     "babel-eslint": "^7.2.3",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.3.2",
+    "cssnano": "^4.1.10",
     "eslint": "^4.1.1",
     "eslint-config-prettier": "^2.3.0",
     "eslint-config-semistandard": "^11.0.0",
@@ -45,6 +46,9 @@
     "lint-staged": "^10.0.1",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.13.1",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
     "prettier": "^1.5.2",
     "react-test-renderer": "^15.6.1",
     "sass-loader": "^8.0.0",
@@ -65,7 +69,7 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.scss$": "<rootDir>/.jest/identity-obj-proxy-esm.js"
+      "\\.css$": "<rootDir>/.jest/identity-obj-proxy-esm.js"
     },
     "collectCoverage": false,
     "collectCoverageFrom": [
@@ -92,5 +96,11 @@
     "testPathIgnorePatterns": [
       "/node_modules/"
     ]
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie < 11",
+    "not op_mini all"
+  ]
 }

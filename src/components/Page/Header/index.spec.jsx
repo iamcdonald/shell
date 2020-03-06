@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import Header from './index';
-import style from './header.scss';
+import style from './header.css';
 
 describe('components/Page/Header', () => {
   afterEach(cleanup);
