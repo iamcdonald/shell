@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 jest.mock('react-dom', () => ({
-  render: jest.fn()
+  render: jest.fn(),
 }));
 
 describe('index', () => {
   beforeEach(() => {
-    global.document.getElementById = x => x;
+    global.document.getElementById = (x) => x;
     require('./index');
   });
 

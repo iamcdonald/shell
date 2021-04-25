@@ -7,11 +7,12 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   mode: isDev ? 'development' : 'production',
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval-cheap-module-source-map',
   entry: [path.join(__dirname, 'src/index')],
+  target: isDev ? "web" : "browserslist",
   output: {
     path: path.join(__dirname, 'public'),
-    filename: '[name].[hash].js'
+    filename: '[name].[contenthash].js'
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -40,21 +41,37 @@ module.exports = {
     ]
   },
   optimization: {
-    minimize: true //Update this to true or false
+    minimize: true, //Update this to true or false
+    chunkIds: "named",
+    splitChunks: {
+      cacheGroups: {
+				commons: {
+					chunks: "initial",
+					minChunks: 2,
+				},
+				vendor: {
+					test: /node_modules/,
+					chunks: "initial",
+					name: "vendor",
+					priority: 10,
+					enforce: true
+				}
+			}
+    }
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css'
+      filename: '[name].[contenthash].css'
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      js: ['[name].[hash].js'],
+      js: ['[name].[contenthash].js'],
       chunks: {
         head: {
-          css: '[name].[hash].css'
+          css: '[name].[contenthash].css'
         },
         main: {
-          entry: '[name].[hash].js'
+          entry: '[name].[contenthash].js'
         }
       }
     })

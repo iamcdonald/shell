@@ -3,9 +3,9 @@ import { render, cleanup } from '@testing-library/react';
 import Contents from './index';
 import style from './content.css';
 
-const createComp = children => {
+const createComp = (children) => {
   return {
-    comp: render(<Contents>{children}</Contents>)
+    comp: render(<Contents>{children}</Contents>),
   };
 };
 

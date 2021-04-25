@@ -5,9 +5,9 @@ import style from './page.css';
 import Header from './Header';
 import Content from './Content';
 
-const createComp = children => {
+const createComp = (children) => {
   return {
-    comp: render(<Page>{children}</Page>)
+    comp: render(<Page>{children}</Page>),
   };
 };
 describe('components/Page', () => {
