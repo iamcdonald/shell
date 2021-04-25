@@ -8,10 +8,10 @@ const isDev = process.env.NODE_ENV !== 'production';
 module.exports = {
   mode: isDev ? 'development' : 'production',
   devtool: 'eval-cheap-module-source-map',
-  entry: [path.join(__dirname, 'src/index')],
+  entry: [path.join(process.cwd(), 'src/index')],
   target: isDev ? "web" : "browserslist",
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(process.cwd(), 'public'),
     filename: '[name].[contenthash].js'
   },
   resolve: {
@@ -35,7 +35,14 @@ module.exports = {
               modules: true
             }
           },
-          'postcss-loader'
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                config: path.resolve(__dirname, "postcss.config.js"),
+              },
+            },
+          }
         ]
       }
     ]
